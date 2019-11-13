@@ -1,7 +1,7 @@
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp main.cpp `pkg-config --cflags --libs sdl2`
 
-// #define USE_SDL2_BACKEND 1
+#define USE_SDL2_BACKEND 1
 
 #include <iostream>
 #include <vector>
