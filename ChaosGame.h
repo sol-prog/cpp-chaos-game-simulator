@@ -48,3 +48,106 @@ struct ChaosGame {
         return point;
     }
 };
+
+int generate_points(std::vector<Point2D> &points, int selection = 0) {
+    // wrap the values for selection values larger than the number of implemented selections
+    if(selection > 14) {
+        selection = 0;
+    }
+
+    // default selection = 0 settings
+    int nr_edges = 3;
+    double ratio = 0.5;
+    int distance = 0;
+    std::function<bool (int, int, int)> func = [] (int random_vertex, int last_vertex, int dist) -> bool {return true;};
+
+    if(selection == 1) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 4;
+        ratio = 0.5;
+        distance = 0;
+    }
+    if(selection == 2) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 4;
+        ratio = 0.5;
+        distance = 2;
+    }
+    if(selection == 3) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 5;
+    }
+    if(selection == 4) {
+        nr_edges = 7;
+        ratio = 0.4;
+    }
+    if(selection == 5) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 7;
+        ratio = 0.4;
+        distance = 3;
+    }
+    if(selection == 6) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 6;
+        ratio = 0.4;
+        distance = 3;
+    }
+    if(selection == 7) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 6;
+        ratio = 0.375;
+        distance = 0;
+    }
+    if(selection == 8) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 6;
+        ratio = 0.5;
+        distance = 0;
+    }
+    if(selection == 9) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 8;
+        ratio = 0.4;
+        distance = 0;
+    }
+    if(selection == 10) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 10;
+        ratio = 0.375;
+        distance = 1;
+    }
+    if(selection == 11) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 10;
+        ratio = 0.375;
+        distance = 2;
+    }
+    if(selection == 12) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 10;
+        ratio = 0.375;
+        distance = 3;
+    }
+    if(selection == 13) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 10;
+        ratio = 0.375;
+        distance = 4;
+    }
+    if(selection == 14) {
+        func = [] (int random_vertex, int last_vertex, int dist) -> bool {return (std::abs(random_vertex - last_vertex) != dist);};
+        nr_edges = 10;
+        ratio = 0.375;
+        distance = 5;
+    }
+
+    RegularPolygon polygon(nr_edges);
+    ChaosGame chaos(polygon);
+
+    for(auto &p : points) {
+        p = chaos.get_next_point(func, ratio, distance);
+    }
+
+    return selection;
+}
