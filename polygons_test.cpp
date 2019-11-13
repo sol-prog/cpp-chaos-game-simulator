@@ -18,14 +18,14 @@ constexpr int width = 800;
 constexpr int height = 800;
 
 int main(int argc, char **argv) {
-    Rectangle2D world{-1.0, -1.0, 1.0, 1.0};
-    std::vector<Point2D> points{{-1.0, -1.0}, {0, 0}, {1.0, 1.0}, {0.5, 0.5}, {-1.0, 1.0}, {1.0, -1.0}};
+    Rectangle2D world{-1.08, -1.08, 1.08, 1.08};
+    RegularPolygon pp(3);
 
 #ifdef USE_SDL2_BACKEND
     Rectangle2D viewport{0, static_cast<double>(height - 1), static_cast<double>(width - 1), 0};
-    backend_sdl2(width, height, world, viewport, points, 7);
+    backend_sdl2(width, height, world, viewport, pp.points, 7);
 #else
     Rectangle2D viewport{0, 0, static_cast<double>(width - 1), static_cast<double>(height - 1)};
-    backend_bmp("chaos.bmp", width, height, world, viewport, points, 7);
+    backend_bmp("chaos.bmp", width, height, world, viewport, pp.points, 7);
 #endif
 }
