@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include "backend_sdl2.h"
+#include <iostream>
 
 static std::vector<SDL_Point> points_to_viewport(int width, int height, const Rectangle2D &world, const std::vector<Point2D> &points) {
     std::vector<SDL_Point> p(points.size());
@@ -15,7 +16,26 @@ static std::vector<SDL_Point> points_to_viewport(int width, int height, const Re
     return p;
 }
 
-void backend_sdl2(int width, int height, const Rectangle2D &world, const std::vector<Point2D> &points) {
+static void drawPointWithSize(SDL_Renderer *renderer, int width, int height, const SDL_Point &p, int radius) {
+    int radius2 = radius * radius;
+
+    int xmin = (p.x - radius) <= 0 ? 0 : (p.x - radius);
+    int xmax = (p.x + radius) >= width ? width - 1 : (p.x + radius);
+
+    int ymin = (p.y - radius) <= 0 ? 0 : (p.y - radius);
+    int ymax = (p.y + radius) >= height ? height - 1 : (p.y + radius);
+
+    for(int j = ymin; j <= ymax; ++j) {
+        for(int i = xmin; i <= xmax; ++i) {
+            int dist = (i - p.x) * (i - p.x) + (j - p.y) * (j - p.y);
+            if(dist <= radius2) {
+                SDL_RenderDrawPoint(renderer, i, j);
+            }
+        }
+    }
+}
+
+void backend_sdl2(int width, int height, const Rectangle2D &world, const std::vector<Point2D> &points, int point_radius) {
     // Initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -50,7 +70,11 @@ void backend_sdl2(int width, int height, const Rectangle2D &world, const std::ve
 
         // Draw
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderDrawPoints(renderer, &p[0], p.size());
+        // SDL_RenderDrawPoints(renderer, &p[0], p.size());
+        for(const SDL_Point &e : p) {
+            //SDL_RenderDrawPoint(renderer, e.x, e.y);
+            drawPointWithSize(renderer, width, height, e, point_radius);
+        }
 
         // Show what was drawn
         SDL_RenderPresent(renderer);
