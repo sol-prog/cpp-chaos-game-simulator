@@ -1,10 +1,11 @@
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp main.cpp `pkg-config --cflags --libs sdl2`
 
-#define USE_SDL2_BACKEND 1
+// #define USE_SDL2_BACKEND 1
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 #include "geometry.h"
 #include "ChaosGame.h"
@@ -36,6 +37,7 @@ int main(int argc, char **argv) {
     backend_sdl2(width, height, world, viewport, points, 0);
 #else
     Rectangle2D viewport{0, 0, static_cast<double>(width - 1), static_cast<double>(height - 1)};
-    backend_bmp("chaos.bmp", width, height, world, viewport, points, 0);
+    std::string fname = "chaos_" + std::to_string(selection) + ".bmp";
+    backend_bmp(fname.c_str(), width, height, world, viewport, points, 0);
 #endif
 }
