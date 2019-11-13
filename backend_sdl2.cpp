@@ -69,11 +69,24 @@ void backend_sdl2(int width, int height, const Rectangle2D &world, const Rectang
 
         // Draw
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        // SDL_RenderDrawPoints(renderer, &p[0], p.size());
-        for(const SDL_Point &e : p) {
-            //SDL_RenderDrawPoint(renderer, e.x, e.y);
-            drawPointWithSize(renderer, width, height, e, point_radius);
+
+        if(point_radius == 0) {
+            SDL_RenderDrawPoints(renderer, &p[0], p.size());
+        } else {
+            for(const SDL_Point &e : p) {
+                drawPointWithSize(renderer, width, height, e, point_radius);
+            }
         }
+        // SDL_RenderDrawPoints(renderer, &p[0], p.size());
+        // for(const SDL_Point &e : p) {
+        //     if(point_radius == 0) {
+        //         SDL_RenderDrawPoint(renderer, e.x, e.y);
+        //     } else {
+        //         drawPointWithSize(renderer, width, height, e, point_radius);
+        //     }
+        //     //SDL_RenderDrawPoint(renderer, e.x, e.y);
+        //     drawPointWithSize(renderer, width, height, e, point_radius);
+        // }
 
         // Show what was drawn
         SDL_RenderPresent(renderer);

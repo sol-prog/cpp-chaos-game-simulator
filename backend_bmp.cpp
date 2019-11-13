@@ -37,8 +37,14 @@ void backend_bmp(const char *file_name, int width, int height, const Rectangle2D
 
     std::vector<Point2D> p = points_to_viewport(width, height, world, viewport, points);
 
-    for(size_t i = 0; i < p.size(); ++i) {
-        drawPointWithSize(bmp, width, height, p[i], point_radius);
+    if(point_radius == 0) {
+        for(size_t i = 0; i < p.size(); ++i) {
+            bmp.fill_region(p[i].x, p[i].y, 1, 1, 0, 0, 0, 255);
+        }
+    } else {
+        for(size_t i = 0; i < p.size(); ++i) {
+            drawPointWithSize(bmp, width, height, p[i], point_radius);
+        }
     }
 
 	bmp.write(file_name);
