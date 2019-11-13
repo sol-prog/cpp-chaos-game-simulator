@@ -2,10 +2,9 @@
 #include "backend_sdl2.h"
 #include <iostream>
 
-static std::vector<SDL_Point> points_to_viewport(int width, int height, const Rectangle2D &world, const std::vector<Point2D> &points) {
+static std::vector<SDL_Point> points_to_viewport(int width, int height, const Rectangle2D &world, const Rectangle2D &viewport, const std::vector<Point2D> &points) {
     std::vector<SDL_Point> p(points.size());
 
-    Rectangle2D viewport{0, static_cast<double>(height), static_cast<double>(width), 0};
     Window_to_Viewport wv{world, viewport};
 
     for(size_t i = 0; i < points.size(); ++i) {
@@ -35,7 +34,7 @@ static void drawPointWithSize(SDL_Renderer *renderer, int width, int height, con
     }
 }
 
-void backend_sdl2(int width, int height, const Rectangle2D &world, const std::vector<Point2D> &points, int point_radius) {
+void backend_sdl2(int width, int height, const Rectangle2D &world, const Rectangle2D &viewport, const std::vector<Point2D> &points, int point_radius) {
     // Initialize SDL
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -46,7 +45,7 @@ void backend_sdl2(int width, int height, const Rectangle2D &world, const std::ve
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Convert points to SDL2 window and axis orientation
-    std::vector<SDL_Point> p = points_to_viewport(width, height, world, points);
+    std::vector<SDL_Point> p = points_to_viewport(width, height, world, viewport, points);
 
     bool running = true;
     SDL_Event event;
