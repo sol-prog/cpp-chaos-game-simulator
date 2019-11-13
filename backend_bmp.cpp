@@ -39,7 +39,7 @@ void backend_bmp(const char *file_name, int width, int height, const Rectangle2D
 
     if(point_radius == 0) {
         for(size_t i = 0; i < p.size(); ++i) {
-            bmp.fill_region(p[i].x, p[i].y, 1, 1, 0, 0, 0, 255);
+            bmp.set_pixel(p[i].x, p[i].y, 0, 0, 0, 255);
         }
     } else {
         for(size_t i = 0; i < p.size(); ++i) {
