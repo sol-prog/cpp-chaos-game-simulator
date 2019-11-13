@@ -49,7 +49,7 @@ struct ChaosGame {
     }
 };
 
-int generate_points(std::vector<Point2D> &points, int selection = 0) {
+inline int generate_points(std::vector<Point2D> &points, int selection = 0) {
     // wrap the values for selection values larger than the number of implemented selections
     if(selection > 14) {
         selection = 0;
