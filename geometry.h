@@ -13,7 +13,6 @@ struct Rectangle2D {
     double top;
 
     Rectangle2D(double left, double bottom, double right, double top) : left{left}, bottom{bottom}, right{right}, top{top} {}
-    //Rectangle2D(double left, double bottom, double width, double height) : left{left}, bottom{bottom}, right{left + width}, top{bottom + height} {}
 
     double width() const {
         return std::abs(right - left);
