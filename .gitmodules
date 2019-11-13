@@ -1,0 +1,3 @@
+[submodule "cpp-bmp-images"]
+	path = cpp-bmp-images
+	url = https://github.com/sol-prog/cpp-bmp-images
