@@ -3,13 +3,13 @@
 #include "../ChaosGame.h"
 #include <iostream>
 
-static std::vector<SDL_Point> points_to_viewport(int width, int height, const Rectangle2D &world, const Rectangle2D &viewport, const std::vector<Point2D> &points) {
+static std::vector<SDL_Point> points_to_screen_space(int width, int height, const Rectangle2D &world, const Rectangle2D &screen_space, const std::vector<Point2D> &points) {
     std::vector<SDL_Point> p(points.size());
 
-    Window_to_Viewport wv{world, viewport};
+    World_to_ScreenSpace wssp{world, screen_space};
 
     for(size_t i = 0; i < points.size(); ++i) {
-        Point2D pp = wv.mapping(points[i]);
+        Point2D pp = wssp.mapping(points[i]);
         p[i].x = pp.x;
         p[i].y = pp.y;
     }
@@ -35,7 +35,7 @@ static void drawPointWithSize(SDL_Renderer *renderer, int width, int height, con
     }
 }
 
-void backend_sdl2(int width, int height, const Rectangle2D &world, const Rectangle2D &viewport, int point_radius) {
+void backend_sdl2(int width, int height, const Rectangle2D &world, const Rectangle2D &screen_space, int point_radius) {
     std::vector<Point2D> points(ChaosGame::max_iterations);
 
     // Use the default selection value
@@ -52,7 +52,7 @@ void backend_sdl2(int width, int height, const Rectangle2D &world, const Rectang
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     // Convert points to SDL2 window and axis orientation
-    std::vector<SDL_Point> p = points_to_viewport(width, height, world, viewport, points);
+    std::vector<SDL_Point> p = points_to_screen_space(width, height, world, screen_space, points);
 
     bool running = true;
     SDL_Event event;
@@ -71,14 +71,14 @@ void backend_sdl2(int width, int height, const Rectangle2D &world, const Rectang
                     case SDLK_n:
                     selection++;
                     selection = generate_points(points, selection);
-                    p = points_to_viewport(width, height, world, viewport, points);
+                    p = points_to_screen_space(width, height, world, screen_space, points);
                     break;
 
                     case SDLK_LEFT:
                     case SDLK_l:
                     if(selection > 0) selection--;
                     selection = generate_points(points, selection);
-                    p = points_to_viewport(width, height, world, viewport, points);
+                    p = points_to_screen_space(width, height, world, screen_space, points);
                     break;
                 }
             }

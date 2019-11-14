@@ -1,7 +1,7 @@
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp main.cpp `pkg-config --cflags --libs sdl2`
 
-// #define USE_SDL2_BACKEND 1
+#define USE_SDL2_BACKEND
 
 #include <iostream>
 #include <vector>
@@ -33,11 +33,11 @@ int main(int argc, char **argv) {
     generate_points(points, selection);
 
 #ifdef USE_SDL2_BACKEND
-    Rectangle2D viewport{0, static_cast<double>(height - 1), static_cast<double>(width - 1), 0};
-    backend_sdl2(width, height, world, viewport, points, 0);
+    Rectangle2D screen_space{0, static_cast<double>(height - 1), static_cast<double>(width - 1), 0};
+    backend_sdl2(width, height, world, screen_space, points, 0);
 #else
-    Rectangle2D viewport{0, 0, static_cast<double>(width - 1), static_cast<double>(height - 1)};
+    Rectangle2D screen_space{0, 0, static_cast<double>(width - 1), static_cast<double>(height - 1)};
     std::string fname = "chaos_" + std::to_string(selection) + ".bmp";
-    backend_bmp(fname.c_str(), width, height, world, viewport, points, 0);
+    backend_bmp(fname.c_str(), width, height, world, screen_space, points, 0);
 #endif
 }
