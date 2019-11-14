@@ -28,17 +28,14 @@ clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
 
 # Build on Windows with MSVC:
 
-* If you have SDL2 installed globally with vcpkg (for the interactive version use the Left/Right arrow keys):
+* If you have SDL2 installed globally with vcpkg (for the interactive version use the Left/Right arrow keys). Easieast approach is to create a VS project and add the files to it.
 
-```
-cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp /DUSE_SDL2_BACKEND main.cpp /Fe:main.exe
-main.exe 3
-cd interactive
-cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp main.cpp /Fe:main.exe
-main.exe
-```
+It is also possible to build the programs from the Terminal, but you will need to manually add the SDL2 include path and link with the library.
 
-* If you don't have SDL2 installed
+
+* If you don't have SDL2 installed. Easieast approach is to create a VS project and add the files to it.
+
+Optionally, you can build the programs from the Terminal with:
 
 ```
 cl /std:c++17 /W3 /permissive- /EHsc backend_bmp.cpp main.cpp /Fe:main.exe
