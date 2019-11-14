@@ -34,11 +34,7 @@ struct RegularPolygon {
         angle = 360.0 / nr_edges;
         // We change the start_angle in order to have the lower edge of every polygon parallel with the horizontal axis
         if(nr_edges % 2 == 0) {
-            start_angle = 0.0;
-            // For a square keep the square edges parallel with the windows edges
-            if(nr_edges == 4) {
-                start_angle = 45.0;
-            }
+            start_angle += angle / 2.0;
         }
         init_points();
     }
