@@ -26,7 +26,7 @@ clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
 ./a.out 3
 ```
 
-# Build on Windows with MSVS:
+# Build on Windows with MSVC:
 
 * If you have SDL2 installed globally with vcpkg (for the interactive version use the Left/Right arrow keys):
 
