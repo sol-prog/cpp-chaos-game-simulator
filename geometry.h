@@ -23,6 +23,7 @@ struct RegularPolygon {
     double angle = 120.0;
     std::vector<Point2D> points;
 
+    // default create an equilateral triangle
     RegularPolygon() {
         points.resize(nr_edges);
         init_points();
@@ -31,8 +32,10 @@ struct RegularPolygon {
     RegularPolygon(int nr_edges, double radius = 1.0) : nr_edges{nr_edges}, radius{radius} {
         points.resize(nr_edges);
         angle = 360.0 / nr_edges;
+        // We change the start_angle in order to have the lower edge of every polygon parallel with the horizontal axis
         if(nr_edges % 2 == 0) {
             start_angle = 0.0;
+            // For a square keep the square edges parallel with the windows edges
             if(nr_edges == 4) {
                 start_angle = 45.0;
             }
@@ -53,8 +56,8 @@ struct RegularPolygon {
             current_angle += angle * deg_rad;
         }
 
+        // Center the points vertically
         double offset = (2.0 - (1.0 - min_y))/2.0;
-
         if(nr_edges % 2 != 0) {
             for(int i = 0; i < nr_edges; ++i) {
                 points[i].y -= offset;
