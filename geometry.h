@@ -14,14 +14,6 @@ struct Rectangle2D {
     double top;
 
     Rectangle2D(double left, double bottom, double right, double top) : left{left}, bottom{bottom}, right{right}, top{top} {}
-
-    double width() const {
-        return std::abs(right - left);
-    }
-
-    double height() const {
-        return std::abs(top - bottom);
-    }
 };
 
 struct RegularPolygon {
@@ -73,27 +65,27 @@ struct RegularPolygon {
 
 /*
 2D window(real space or the "world") to viewport(screen/canvas space) mapping:
-    x_viewport = A * x_window + C
-    y_viewport = B * y_window + D
+    x_screen_space = A * x_world + C
+    y_screen_space = B * y_world + D
 where:
-    A = (V.right - V.left)/(W.right - W.left)
-    B = (V.top - V.bottom)/(W.top - W.bottom)
-    C = V.left - A * W.left
-    D = V.bottom - B * W.bottom
+    A = (S.right - S.left)/(W.right - W.left)
+    B = (S.top - S.bottom)/(W.top - W.bottom)
+    C = S.left - A * W.left
+    D = S.bottom - B * W.bottom
 
-Note: The mapping holds even when the viewport has the Y axis pointing down (in which case top = 0 and bottom = height).
+Note: The mapping holds even when the screen space has the Y axis pointing down (in which case top = 0 and bottom = height).
 */
-struct Window_to_Viewport {
+struct World_to_ScreenSpace {
     double A;
     double B;
     double C;
     double D;
 
-    Window_to_Viewport(const Rectangle2D &window, const Rectangle2D &viewport) {
-        A = (viewport.right - viewport.left) / (window.right - window.left);
-        B = (viewport.top - viewport.bottom) / (window.top - window.bottom);
-        C = viewport.left - A * window.left;
-        D = viewport.bottom - B * window.bottom;
+    World_to_ScreenSpace(const Rectangle2D &world, const Rectangle2D &screen_space) {
+        A = (screen_space.right - screen_space.left) / (world.right - world.left);
+        B = (screen_space.top - screen_space.bottom) / (world.top - world.bottom);
+        C = screen_space.left - A * world.left;
+        D = screen_space.bottom - B * world.bottom;
     }
 
     Point2D mapping(const Point2D p) const {

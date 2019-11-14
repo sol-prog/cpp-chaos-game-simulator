@@ -1,17 +1,19 @@
 #include "backend_bmp.h"
 #include "cpp-bmp-images/BMP.h"
 
-static std::vector<Point2D> points_to_viewport(int width, int height, const Rectangle2D &world, const Rectangle2D &viewport, const std::vector<Point2D> &points) {
+// Transform/Map/Convert the points elements to the screen space
+static std::vector<Point2D> points_to_screen_space(int width, int height, const Rectangle2D &world, const Rectangle2D &screen_space, const std::vector<Point2D> &points) {
     std::vector<Point2D> p(points.size());
 
-    Window_to_Viewport wv{world, viewport};
+    World_to_ScreenSpace wssp{world, screen_space};
 
     for(size_t i = 0; i < points.size(); ++i) {
-        p[i] = wv.mapping(points[i]);
+        p[i] = wssp.mapping(points[i]);
     }
     return p;
 }
 
+// Draw a "crude" circle around the point p
 static void drawPointWithSize(BMP &bmp, int width, int height, const Point2D &p, int radius) {
     int radius2 = radius * radius;
 
@@ -31,11 +33,11 @@ static void drawPointWithSize(BMP &bmp, int width, int height, const Point2D &p,
     }
 }
 
-void backend_bmp(const char *file_name, int width, int height, const Rectangle2D &world, const Rectangle2D &viewport, const std::vector<Point2D> &points, int point_radius) {
+void backend_bmp(const char *file_name, int width, int height, const Rectangle2D &world, const Rectangle2D &screen_space, const std::vector<Point2D> &points, int point_radius) {
 	BMP bmp(width, height, false);
     bmp.fill_region(0, 0, width, height, 255, 255, 255, 255);
 
-    std::vector<Point2D> p = points_to_viewport(width, height, world, viewport, points);
+    std::vector<Point2D> p = points_to_screen_space(width, height, world, screen_space, points);
 
     if(point_radius == 0) {
         for(size_t i = 0; i < p.size(); ++i) {
