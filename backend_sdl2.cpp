@@ -10,8 +10,8 @@ static std::vector<SDL_Point> points_to_screen_space(int width, int height, cons
 
     for(size_t i = 0; i < points.size(); ++i) {
         Point2D pp = wssp.mapping(points[i]);
-        p[i].x = pp.x;
-        p[i].y = pp.y;
+        p[i].x = static_cast<int>(pp.x);
+        p[i].y = static_cast<int>(pp.y);
     }
     return p;
 }

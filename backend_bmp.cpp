@@ -25,7 +25,7 @@ static void drawPointWithSize(BMP &bmp, int width, int height, const Point2D &p,
 
     for(int j = ymin; j <= ymax; ++j) {
         for(int i = xmin; i <= xmax; ++i) {
-            int dist = (i - p.x) * (i - p.x) + (j - p.y) * (j - p.y);
+            int dist = static_cast<int>((i - p.x) * (i - p.x) + (j - p.y) * (j - p.y));
             if(dist <= radius2) {
                 bmp.fill_region(i, j, 1, 1, 0, 0, 0, 255);
             }
@@ -41,7 +41,7 @@ void backend_bmp(const char *file_name, int width, int height, const Rectangle2D
 
     if(point_radius == 0) {
         for(size_t i = 0; i < p.size(); ++i) {
-            bmp.set_pixel(p[i].x, p[i].y, 0, 0, 0, 255);
+            bmp.set_pixel(static_cast<uint32_t>(p[i].x), static_cast<uint32_t>(p[i].y), 0, 0, 0, 255);
         }
     } else {
         for(size_t i = 0; i < p.size(); ++i) {
