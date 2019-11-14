@@ -1,7 +1,9 @@
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp backend_test.cpp
-// clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp backend_test.cpp `pkg-config --cflags --libs sdl2`
-
-#define USE_SDL2_BACKEND
+// clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp -DUSE_SDL2_BACKEND backend_test.cpp `pkg-config --cflags --libs sdl2`
+// g++ -std=c++17 -Wall -pedantic backend_bmp.cpp backend_test.cpp
+// g++ -std=c++17 -Wall -pedantic backend_sdl2.cpp -DUSE_SDL2_BACKEND backend_test.cpp `pkg-config --cflags --libs sdl2`
+// cl /std:c++17 /W3 /permissive- /EHsc backend_bmp.cpp backend_test.cpp /Fe:backend_test.exe
+// cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp /DUSE_SDL2_BACKEND backend_test.cpp /Fe:backend_test.exe
 
 #include <iostream>
 #include <vector>

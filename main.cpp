@@ -1,7 +1,11 @@
-// clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
-// clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp main.cpp `pkg-config --cflags --libs sdl2`
+// Usage:  "prog_name selection", where selection is a number from 0 to 14
 
-#define USE_SDL2_BACKEND
+// clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
+// clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp -DUSE_SDL2_BACKEND main.cpp `pkg-config --cflags --libs sdl2`
+// g++ -std=c++17 -Wall -pedantic backend_bmp.cpp main.cpp
+// g++ -std=c++17 -Wall -pedantic backend_sdl2.cpp -DUSE_SDL2_BACKEND main.cpp `pkg-config --cflags --libs sdl2`
+// cl /std:c++17 /W3 /permissive- /EHsc backend_bmp.cpp main.cpp /Fe:main.exe
+// cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp /DUSE_SDL2_BACKEND main.cpp /Fe:main.exe
 
 #include <iostream>
 #include <vector>

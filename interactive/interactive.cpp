@@ -1,6 +1,10 @@
-// Interactive version - this requires the SDL2 backend
+// Interactive version - this requires that you have the SDL2 library installed
 // Use the left/right arrow keys to navigate back and forth in the available selections
+
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp interactive.cpp `pkg-config --cflags --libs sdl2`
+// g++ -std=c++17 -Wall -pedantic backend_sdl2.cpp interactive.cpp `pkg-config --cflags --libs sdl2`
+// cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp interactive.cpp /Fe:interactive.exe
+
 
 #include <iostream>
 #include <vector>

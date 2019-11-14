@@ -12,14 +12,14 @@ cd cpp-chaos-game-simulator
 * If you have SDL2 (for the interactive version use the Left/Right arrow keys):
 
 ```
-clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp main.cpp `pkg-config --cflags --libs sdl2`
+clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp -DUSE_SDL2_BACKEND main.cpp `pkg-config --cflags --libs sdl2`
 ./a.out 3
 cd interactive
 clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp main.cpp `pkg-config --cflags --libs sdl2`
 ./a.out
 ```
 
-* If you don't have SDL2 installed open *main.cpp*, *backend_test.cpp*, *polygons_test.cpp* and comment the *USE_SDL2_BACKEND* line!!!
+* If you don't have SDL2 installed:
 
 ```
 clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
@@ -31,14 +31,14 @@ clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp main.cpp
 * If you have SDL2 installed globally with vcpkg (for the interactive version use the Left/Right arrow keys):
 
 ```
-cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp main.cpp /Fe:main.exe
+cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp /DUSE_SDL2_BACKEND main.cpp /Fe:main.exe
 main.exe 3
 cd interactive
 cl /std:c++17 /W3 /permissive- /EHsc backend_sdl2.cpp main.cpp /Fe:main.exe
 main.exe
 ```
 
-* If you don't have SDL2 installed open *main.cpp*, *backend_test.cpp*, *polygons_test.cpp* and comment the *USE_SDL2_BACKEND* line!!!
+* If you don't have SDL2 installed
 
 ```
 cl /std:c++17 /W3 /permissive- /EHsc backend_bmp.cpp main.cpp /Fe:main.exe
