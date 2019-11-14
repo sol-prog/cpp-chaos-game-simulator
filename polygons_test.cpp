@@ -1,7 +1,7 @@
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_bmp.cpp polygons_test.cpp
 // clang++ -std=c++17 -stdlib=libc++ -Wall -pedantic backend_sdl2.cpp polygons_test.cpp `pkg-config --cflags --libs sdl2`
 
-// #define USE_SDL2_BACKEND
+#define USE_SDL2_BACKEND
 
 #include <iostream>
 #include <vector>
